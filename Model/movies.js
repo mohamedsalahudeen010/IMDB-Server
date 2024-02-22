@@ -94,6 +94,6 @@ const movieScheme= mongoose.Schema({
  
 
 })
-const Movies=mongoose.model.movies||mongoose.model("movies",movieScheme)
+const Movies=mongoose.model("movies",movieScheme)
 
 export default Movies
