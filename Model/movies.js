@@ -45,7 +45,7 @@ const movieScheme= mongoose.Schema({
     actorImage:{
         type:String,
     },
-    director:{
+    directorName:{
         type:String,
         required:true,
         maxlength:32,
@@ -55,7 +55,7 @@ const movieScheme= mongoose.Schema({
         type:String,
         required:true,
     },
-    musicDirector:{
+    musicDirectorName:{
         type:String,
         required:true,
         maxlength:32,
@@ -65,7 +65,7 @@ const movieScheme= mongoose.Schema({
         type:String,
         required:true,
     },
-    producer:{
+    producerName:{
         type:String,
         required:true,
         maxlength:32,
