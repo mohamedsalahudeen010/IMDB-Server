@@ -47,7 +47,7 @@ const router=express.Router();
       try {
         if(search){
           const products = await Movies.find({$or:[
-          {leadActorName:search,$options:"i"},
+          {leadActorName:search},
           {actorName:search},
           {directorName:search},
           {musicDirectorName:search},
