@@ -7,7 +7,7 @@ const router=express.Router();
   router.get("/", async (req, res) => {
 
     const search=req.query.search;
-    console.log(search)
+    
       try {
         if(search){
           const products = await Movies.find({$or:[
@@ -15,12 +15,13 @@ const router=express.Router();
           {genre:{$regex:search,$options:`i`}},
           {language:{$regex:search,$options:`i`}},
           {industry:{$regex:search,$options:`i`}},
-          {leadActor:{$regex:search,$options:`i`}},
-          {leadActress:{$regex:search,$options:`i`}},
-          {director:{$regex:search,$options:`i`}},
-          {producer:{$regex:search,$options:`i`}},
-          {musicDirector:{$regex:search,$options:`i`}},
-        ]}).sort({year:1});;
+          {leadActorName:{$regex:search,$options:`i`}},
+          {actorName:{$regex:search,$options:`i`}},
+          {directorName:{$regex:search,$options:`i`}},
+          {producerName:{$regex:search,$options:`i`}},
+          {musicDirectorName:{$regex:search,$options:`i`}},
+          {year:search},
+        ]}).sort({year:-1});;
           if (!products) {
             res.status(400).json({ message: "can't get the data" });
           }
@@ -46,10 +47,10 @@ const router=express.Router();
       try {
         if(search){
           const products = await Movies.find({$or:[
-          {leadActor:search},
-          {leadActress:search},
-          {director:search},
-          {musicDirector:search},
+          {leadActorName:search,$options:"i"},
+          {actorName:search},
+          {directorName:search},
+          {musicDirectorName:search},
         ]}).sort({year:1});;
           if (!products) {
             res.status(400).json({ message: "can't get the data" });
