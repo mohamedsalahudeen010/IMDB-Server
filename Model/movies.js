@@ -26,7 +26,7 @@ const movieScheme= mongoose.Schema({
         type:String,
         required:true,
     },
-    leadActor:{
+    leadActorName:{
         type:String,
         required:true,
         maxlength:32,
@@ -37,12 +37,12 @@ const movieScheme= mongoose.Schema({
         required:true,
       
     },
-    leadActress:{
+    actorName:{
         type:String,
         maxlength:32,
         trim:true
     },
-    leadActressImage:{
+    actorImage:{
         type:String,
     },
     director:{
