@@ -42,8 +42,9 @@ const router=express.Router();
   
 
     
-  router.get("one/", async (req, res) => {
+  router.get("/one", async (req, res) => {
     const {search}=req.query;
+    
       try {
         if(search){
           const products = await Movies.find({$or:[
