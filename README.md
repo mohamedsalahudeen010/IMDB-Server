@@ -42,9 +42,9 @@ Authorization and Authentication:
 
 Installation
   To run this application locally, follow these steps:
-  Clone the repository: git clone https:
+  Clone the repository: 
   
-  //github.com/mohamedsalahudeen010/IMDB-Server
+  git clone https://github.com/mohamedsalahudeen010/IMDB-Server
   
   Navigate to the project directory:cd .\BackEnd\
   Install dependencies:
