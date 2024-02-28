@@ -45,6 +45,7 @@ Installation
   Clone the repository: git clone https:
   
   //github.com/mohamedsalahudeen010/IMDB-Server
+  
   Navigate to the project directory:cd .\BackEnd\
   Install dependencies:
   npm install
