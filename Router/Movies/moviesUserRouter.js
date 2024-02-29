@@ -52,7 +52,7 @@ const router=express.Router();
           {actorName:search},
           {directorName:search},
           {musicDirectorName:search},
-        ]}).sort({year:1});;
+        ]}).sort({year:-1});;
           if (!products) {
             res.status(400).json({ message: "can't get the data" });
           }
@@ -87,7 +87,7 @@ const router=express.Router();
     }
   });
 
-  router.put("rating/:id", async (req, res) => {
+  router.put("/rating/:id", async (req, res) => {
     console.log(req.body)
     console.log(req.params.id)
     try {
