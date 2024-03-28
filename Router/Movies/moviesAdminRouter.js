@@ -45,7 +45,7 @@ router.get("/", async (req, res) => {
         { new: true }
       );
       if (!updatedMovie) {
-        return res.status(400).json({ message: "Couldn'nt update your content" });
+        return res.status(400).json({ message: "Couldn'nt update Movie" });
       }
       return res.status(200).json({ message: "updated Successfully"});
     } catch (error) {
@@ -60,7 +60,7 @@ router.get("/", async (req, res) => {
         const deleteMovie=await Movies.findByIdAndDelete(
             {_id:req.params.id},
         )   
-        if(!deleteMovie){return res.status(400).json({message:"Couldn'nt delete your content"})}
+        if(!deleteMovie){return res.status(400).json({message:"Couldn'nt delete Movie"})}
         return res.status(200).json({message:"Deleted Successfully"})
     } catch (error) {
         console.log(error);
@@ -77,7 +77,7 @@ router.delete("/all",async(req,res)=>{
       const deleteMovies=await Movies.deleteMany(
           {},
       )   
-      if(!deleteMovies){return res.status(400).json({message:"Couldn'nt delete your content"})}
+      if(!deleteMovies){return res.status(400).json({message:"Couldn'nt delete Movie"})}
       return res.status(200).json({message:"Deleted Successfully"})
   } catch (error) {
       console.log(error);
