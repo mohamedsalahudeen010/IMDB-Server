@@ -6,17 +6,17 @@ const router=express.Router();
 
 
 router.get("/", async (req, res) => {
-    try {
-      const actor = await Actor.find({});
-      if (!actor) {
-        res.status(400).json({ message: "can't get the Actor data" });
-      }
-      res.status(200).json({data:actor,message:"Actor get Successfully"});
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({message:"Internal Server Error"});
+  try {
+    const actor = await Actor.find({});
+    if (!actor) {
+      res.status(400).json({ message: "can't get the Actor data" });
     }
-  });
+    res.status(200).json({data:actor,message:"Actor get Successfully"});
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({message:"Internal Server Error"});
+  }
+});
 
 
   router.post("/", async (req, res) => {
