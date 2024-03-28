@@ -1,9 +1,5 @@
 import express from "express"
 import WishList from "../../Model/wishList.js";
-
-
-
-
 const router=express.Router();
 
 
@@ -16,7 +12,7 @@ router.get("/", async (req, res) => {
       res.status(200).json(wishList);
     } catch (error) {
       console.log(error);
-      res.status(500).json("Server Error");
+      res.status(500).json({ message: "Internal Server Error" });
     }
   });
 
@@ -31,14 +27,14 @@ router.get("/", async (req, res) => {
         email:req.body.email,
         movies:req.body.movies
           }).save()
-          return res.status(200).json("Added Successfully");
+          return res.status(200).json({ message: "Added Successfully" });
         }
      
         wishList=await WishList.updateOne(
        {email:req.body.email},
        {$push:{movies:req.body.movies}}
        )
-      return res.status(200).json("Added Successfully"); 
+      return res.status(200).json({ message: "Added Successfully" }); 
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Internal server error" });
@@ -53,7 +49,7 @@ router.get("/", async (req, res) => {
           {email:req.body.email},
           {$pull:{movies:{_id:req.params.id}}}
           )
-          return res.status(200).json("Deleted Successfully"); 
+          return res.status(200).json({ message: "Deleted Successfully" }); 
     } catch (error) {
         console.log(error);
         return res.status(500).json({message:"Internal server error"})
@@ -71,7 +67,7 @@ router.get("/", async (req, res) => {
       if (!removeWishList) {
         return res.status(400).json({ message: "Couldn'nt remove" });
       }
-      return res.status(200).json("Successfully Removed");
+      return res.status(200).json({ message: "Successfully Removed" });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Internal server error" });
