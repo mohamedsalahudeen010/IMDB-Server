@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
       res.status(200).json(producer);
     } catch (error) {
       console.log(error);
-      res.status(500).json("Server Error");
+      res.status(500).json({ message:"Internal Server Error"});
     }
   });
 
@@ -27,16 +27,16 @@ router.get("/", async (req, res) => {
         return  res.status(409).json({message:"Producer  Already Exist"})
       }
       producer=await Producer.create(req.body)
-      return res.status(200).json("Producer added Successfully");
+      return res.status(200).json({ message:"Producer added Successfully"});
     } catch (error) {
       console.log(error);
-      return res.status(500).json("Server Error");
+      return res.status(500).json({ message:"Internal Server Error"});
     }
   });
 
 
   router.put("/:id", async (req, res) => {
-    console.log("gggggggg")
+   
     try {
       const updatedProducer= await Producer.findOneAndUpdate(
         { _id: req.params.id },
@@ -44,9 +44,9 @@ router.get("/", async (req, res) => {
         { new: true }
       );
       if (!updatedProducer) {
-        return res.status(400).json({ message: "Couldn'nt update your content" });
+        return res.status(400).json({ message: "Couldn'nt update your data" });
       }
-      return res.status(200).json("updated Successfully");
+      return res.status(200).json({ message:"updated Successfully"});
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Internal server error" });
@@ -59,7 +59,7 @@ router.get("/", async (req, res) => {
         const deleteMovie=await Producer.findByIdAndDelete(
             {_id:req.params.id},
         )   
-        if(!deleteMovie){return res.status(400).json({message:"Couldn'nt delete your content"})}
+        if(!deleteMovie){return res.status(400).json({message:"Couldn'nt delete Producer"})}
         return res.status(200).json({message:"Deleted Successfully"})
     } catch (error) {
         console.log(error);
@@ -76,7 +76,7 @@ router.delete("/all",async(req,res)=>{
       const deleteProducers=await Producer.deleteMany(
           {},
       )   
-      if(!deleteProducers){return res.status(400).json({message:"Couldn'nt delete your content"})}
+      if(!deleteProducers){return res.status(400).json({message:"Couldn'nt delete"})}
       return res.status(200).json({message:"Deleted Successfully"})
   } catch (error) {
       console.log(error);
