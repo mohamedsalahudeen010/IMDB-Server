@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
       res.status(200).json(movies);
     } catch (error) {
       console.log(error);
-      res.status(500).json("Server Error");
+      res.status(500).json({ message: "Server Error"});
     }
   });
 
@@ -27,13 +27,15 @@ router.get("/", async (req, res) => {
         return  res.status(409).json({message:"Movie Already Exist"})
       }
       movies=await Movies.create(req.body)
-      res.status(200).json("Movie added Successfully");
+      res.status(200).json({message:"Movie added Successfully"});
     } catch (error) {
       console.log(error);
-      res.status(500).json("Server Error");
+      res.status(500).json({message:"Internal Server Error"});
     }
   });
 
+
+  
 
   router.put("/:id", async (req, res) => {
     try {
@@ -45,7 +47,7 @@ router.get("/", async (req, res) => {
       if (!updatedMovie) {
         return res.status(400).json({ message: "Couldn'nt update your content" });
       }
-      return res.status(200).json("updated Successfully");
+      return res.status(200).json({ message: "updated Successfully"});
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Internal server error" });
