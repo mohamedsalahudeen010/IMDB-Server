@@ -11,10 +11,10 @@ router.get("/", async (req, res) => {
       if (!actor) {
         res.status(400).json({ message: "can't get the Actor data" });
       }
-      res.status(200).json(actor);
+      res.status(200).json({data:actor,message:"Actor get Successfully"});
     } catch (error) {
       console.log(error);
-      res.status(500).json("Server Error");
+      res.status(500).json({message:"Internal Server Error"});
     }
   });
 
@@ -22,15 +22,14 @@ router.get("/", async (req, res) => {
   router.post("/", async (req, res) => {
     try {
       let actor = await Actor.findOne({name:req.body.name});;
-      console.log("///////",actor)
       if(actor){
-        return  res.status(409).json({message:"Actor data Already Exist"})
+        return  res.status(409).json({message:"Actor Already Exist"})
       }
       actor=await Actor.create(req.body)
-      return res.status(200).json("Actor data added Successfully");
+      return res.status(200).json({message:"Actor data added Successfully"});
     } catch (error) {
       console.log(error);
-      return res.status(500).json("Server Error");
+      return res.status(500).json({message:"Internal Server Error"});
     }
   });
 
@@ -45,10 +44,10 @@ router.get("/", async (req, res) => {
       if (!updatedActor) {
         return res.status(400).json({ message: "Couldn'nt update your content" });
       }
-      return res.status(200).json("updated Successfully");
+      return res.status(200).json({ message:"updated Successfully"});
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: "Internal server error" });
+      return res.status(500).json({ message: "Internal server error" });
     }
   });
 
@@ -78,8 +77,8 @@ router.delete("/all",async(req,res)=>{
       if(!deleteActors){return res.status(400).json({message:"Couldn'nt delete your content"})}
       return res.status(200).json({message:"Deleted Successfully"})
   } catch (error) {
-      console.log(error);
-      res.status(500).json({message:"Internal server error"})
+      
+      return res.status(500).json({message:"Internal server error"})
   }
 
   
