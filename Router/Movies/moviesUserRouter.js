@@ -36,7 +36,7 @@ const router=express.Router();
       }
       } catch (error) {
         console.log(error);
-        res.status(500).json("Server Error");
+        res.status(500).json({ message:"Internal Server Error"});
       }
     });
   
@@ -52,7 +52,7 @@ const router=express.Router();
           {actorName:search},
           {directorName:search},
           {musicDirectorName:search},
-        ]}).sort({year:-1});;
+        ]}).sort({year:1});;
           if (!products) {
             res.status(400).json({ message: "can't get the data" });
           }
@@ -67,7 +67,7 @@ const router=express.Router();
       }
       } catch (error) {
         console.log(error);
-        res.status(500).json("Server Error");
+        res.status(500).json({ message:"Internal Server Error"});
       }
     });
 
@@ -83,7 +83,7 @@ const router=express.Router();
       res.status(200).json(movies);
     } catch (error) {
       console.log(error);
-      res.status(500).json("Server Error");
+      res.status(500).json({ message:"Internal Server Error"});
     }
   });
 
@@ -99,7 +99,7 @@ const router=express.Router();
       if (!updatedMovie) {
         return res.status(400).json({ message: "Couldn'nt update your content" });
       }
-      return res.status(200).json("updated Successfully");
+      return res.status(200).json({ message:"updated Successfully"});
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Internal server error" });
