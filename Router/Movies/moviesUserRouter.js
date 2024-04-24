@@ -107,5 +107,42 @@ const router=express.Router();
   });
 
 
+  router.post("/", async (req, res) => {
+    try {
+      let movies = await Movies.findOne({$and:
+        [{movieName:{$eq:req.body.movieName}},
+            {language:{$eq:req.body.language}}]});;
+     
+      if(movies){
+        return  res.status(409).json({message:"Movie Already Exist"})
+      }
+      movies=await Movies.create(req.body)
+      res.status(200).json({message:"Movie added Successfully"});
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({message:"Internal Server Error"});
+    }
+  });
+
+
+  
+
+  router.put("/:id", async (req, res) => {
+    try {
+      const updatedMovie = await Movies.findOneAndUpdate(
+        { _id: req.params.id },
+        { $set: req.body },
+        { new: true }
+      );
+      if (!updatedMovie) {
+        return res.status(400).json({ message: "Couldn'nt update Movie" });
+      }
+      return res.status(200).json({ message: "updated Successfully"});
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
   export const moviesRouterUser = router;
 
