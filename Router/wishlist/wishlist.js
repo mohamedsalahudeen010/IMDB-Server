@@ -18,12 +18,12 @@ router.get("/", async (req, res) => {
 
 
   
-  router.post("/", async (req, res) => {
+ router.post("/", async (req, res) => {
     try {
-        let wishList=await WishList.findOne({email:req.body.email})
+        let user=await WishList.findOne({email:req.body.email})
    
-        if(!wishList){
-          wishList=await new WishList({
+        if(!user){
+          user=await new WishList({
             name:req.body.name,
             email:req.body.email,
             movies:req.body.movies
@@ -31,8 +31,12 @@ router.get("/", async (req, res) => {
           return res.status(200).json({ message: "Added Successfully" });
         }
         else{
-          let data = wishList.movies.filter((ele)=>ele.movieName===req.body.movies.movieName)
-          if(data){
+          console.log("UserNAme",user.name)
+          console.log("MovieName",req.body.movies.movieName)
+          
+          let wishList = user.movies.filter((ele)=>ele.movieName===req.body.movies.movieName)
+          console.log("wishlist",wishList)
+          if(wishList.length>0){
             return res.status(200).json({ message: "Movie Already exist" });
           }
           wishList=await WishList.updateOne(
@@ -47,6 +51,7 @@ router.get("/", async (req, res) => {
       res.status(500).json({ message: "Internal server error" });
     }
   });
+
 
 
   router.post("/delete/:id",async(req,res)=>{
