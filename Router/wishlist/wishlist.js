@@ -31,11 +31,7 @@ router.get("/", async (req, res) => {
           return res.status(200).json({ message: "Added Successfully" });
         }
         else{
-          console.log("UserNAme",user.name)
-          console.log("MovieName",req.body.movies.movieName)
-          
           let wishList = user.movies.filter((ele)=>ele.movieName===req.body.movies.movieName)
-          console.log("wishlist",wishList)
           if(wishList.length>0){
             return res.status(200).json({ message: "Movie Already exist" });
           }
