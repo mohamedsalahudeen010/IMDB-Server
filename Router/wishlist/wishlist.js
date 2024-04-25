@@ -17,6 +17,7 @@ router.get("/", async (req, res) => {
   });
 
 
+  
   router.post("/", async (req, res) => {
     try {
         let wishList=await WishList.findOne({email:req.body.email})
@@ -24,22 +25,29 @@ router.get("/", async (req, res) => {
         if(!wishList){
           wishList=await new WishList({
             name:req.body.name,
-        email:req.body.email,
-        movies:req.body.movies
+            email:req.body.email,
+            movies:req.body.movies
           }).save()
           return res.status(200).json({ message: "Added Successfully" });
         }
-     
-        wishList=await WishList.updateOne(
-       {email:req.body.email},
-       {$push:{movies:req.body.movies}}
-       )
-      return res.status(200).json({ message: "Added Successfully" }); 
+        else{
+          let data = wishList.movies.filter((ele)=>ele.movieName===req.body.movies.movieName)
+          if(data){
+            return res.status(200).json({ message: "Movie Already exist" });
+          }
+          wishList=await WishList.updateOne(
+            {email:req.body.email},
+            {$push:{movies:req.body.movies}}
+            )
+           return res.status(200).json({ message: "Updated Successfully" }); 
+        }
+       
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Internal server error" });
     }
   });
+
 
   router.post("/delete/:id",async(req,res)=>{
     try {
