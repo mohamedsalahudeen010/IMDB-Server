@@ -107,7 +107,7 @@ const router=express.Router();
   });
 
 
-  router.post("/", async (req, res) => {
+ router.post("/", async (req, res) => {
     try {
       let movies = await Movies.findOne({$and:
         [{movieName:{$eq:req.body.movieName}},
@@ -116,6 +116,29 @@ const router=express.Router();
       if(movies){
         return  res.status(409).json({message:"Movie Already Exist"})
       }
+      let actor = await Actor.findOne({name:req.body.leadActorName});
+      if(!actor){
+        let data={
+        name:req.body.leadActorName,
+        gender:"male",
+        image:req.body.leadActorImage,
+        dob:"10",
+        Bio:"Lead Actor"
+        }
+        actor=await Actor.create(data)
+      }
+      let actress=await Actor.findOne({name:req.body.actorName});
+      if(!actress){
+        let data={
+          name:req.body.actorName,
+          gender:"female",
+          image:req.body.actorImage,
+          dob:"6",
+          Bio:"Lead Actress"
+          }
+          actor=await Actor.create(data)
+      }
+      
       movies=await Movies.create(req.body)
       res.status(200).json({message:"Movie added Successfully"});
     } catch (error) {
@@ -123,6 +146,7 @@ const router=express.Router();
       res.status(500).json({message:"Internal Server Error"});
     }
   });
+
 
 
   
