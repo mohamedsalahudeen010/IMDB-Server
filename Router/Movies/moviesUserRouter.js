@@ -1,5 +1,6 @@
 import express from "express"
 import Movies from "../../Model/movies.js";
+import Actor from "../../Model/actors.js";
 
 
 const router=express.Router();
