@@ -50,13 +50,16 @@ router.get("/", async (req, res) => {
 
 
 
-  router.post("/delete/:id",async(req,res)=>{
+  
+  router.post("/delete",async(req,res)=>{
     try {
         let deleteMovie=await WishList.findOne({email:req.body.email})   
         if(!deleteMovie){return res.status(400).json({message:"Couldn'nt delete your content"})}
+        
+        console.log(req.body.movieName)
         deleteMovie=await WishList.updateOne(
           {email:req.body.email},
-          {$pull:{movies:{_id:req.params.id}}}
+          {$pull:{movies:{movieName:req.body.movieName}}}
           )
           return res.status(200).json({ message: "Deleted Successfully" }); 
     } catch (error) {
